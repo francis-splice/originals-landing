@@ -9,39 +9,50 @@
 
 <style>
   /* ===========================================================
-     Inter, self-hosted Splice-approximating geometric sans.
-     (Spitfire GT fonts deliberately NOT used: this is a Splice page.)
+     Exact Splice typefaces: Söhne (web-fett) for display, Inter
+     variable for body. These are the same woff2 files Splice
+     serves from spliceblob.splice.com, self-hosted here because
+     that CDN only sends CORS headers for the splice.com origin
+     (cross-origin @font-face loads from any other host are blocked).
      =========================================================== */
-  @font-face{font-family:Inter;font-weight:400;font-display:swap;src:url("assets/fonts/inter-400.woff2") format("woff2")}
-  @font-face{font-family:Inter;font-weight:500;font-display:swap;src:url("assets/fonts/inter-500.woff2") format("woff2")}
-  @font-face{font-family:Inter;font-weight:600;font-display:swap;src:url("assets/fonts/inter-600.woff2") format("woff2")}
-  @font-face{font-family:Inter;font-weight:700;font-display:swap;src:url("assets/fonts/inter-700.woff2") format("woff2")}
-  @font-face{font-family:Inter;font-weight:800;font-display:swap;src:url("assets/fonts/inter-800.woff2") format("woff2")}
-  @font-face{font-family:Inter;font-weight:900;font-display:swap;src:url("assets/fonts/inter-900.woff2") format("woff2")}
+  @font-face{font-family:InterVariable;src:url("assets/fonts/splice-inter-var.woff2") format("woff2-variations"),url("assets/fonts/splice-inter-var.woff2") format("woff2");font-weight:100 900;font-display:swap}
+  @font-face{font-family:Soehne;src:url("assets/fonts/soehne-web-fett.woff2") format("woff2");font-display:swap}
+  @font-face{font-family:SoehneBreit;src:url("assets/fonts/soehne-breit-web-fett.woff2") format("woff2");font-display:swap}
 
   :root{
-    --bg:#08080B;
-    --bg-2:#0D0D12;
-    --surface:#131319;
-    --surface-2:#1A1A22;
-    --line:#23232C;
-    --line-soft:#1B1B22;
-    --white:#FFFFFF;
-    --text:#E7E7EC;
-    --muted:#9A9AA6;
-    --faint:#6C6C78;
+    /* Splice neutral scale (dark theme tokens, exact from splice.com) */
+    --bg:#121214;          /* --ui-background */
+    --bg-2:#19191c;
+    --surface:#1d1e21;
+    --surface-2:#232426;   /* --ui-01 */
+    --line:#303236;        /* --ui-02 / --ui-03 */
+    --line-soft:#232426;
+    --white:#FFFFFF;       /* --text-01 */
+    --text:#E9E9EC;
+    --muted:#C8C9CC;       /* --text-02 */
+    --faint:#A6A8AD;       /* --text-03 */
 
-    /* Splice pink → magenta → violet */
-    --pink:#FF3D8A;
-    --magenta:#E81C9A;
-    --violet:#7B2FF0;
-    --pink-ink:#FF5C9D;
-    --grad:linear-gradient(100deg,#FF4D8D 0%,#E81C9A 45%,#7B2FF0 100%);
-    --grad-soft:linear-gradient(100deg,rgba(255,77,141,.16),rgba(123,47,240,.16));
+    /* Splice electric blue (exact: --primary-btn / --primary-hover / --link-primary) */
+    --blue:#1253FF;        /* primary on dark */
+    --blue-strong:#03F;    /* #0033FF, primary hover */
+    --blue-soft:#528FFF;   /* link / accent on dark */
+    --primary:#1253FF;
+    /* legacy accent aliases, remapped to the Splice blue brand */
+    --pink:#1253FF;
+    --magenta:#03F;
+    --violet:#528FFF;
+    --pink-ink:#528FFF;
+    --grad:linear-gradient(100deg,#1253FF 0%,#03F 55%,#528FFF 100%);
+    --grad-soft:linear-gradient(100deg,rgba(18,83,255,.16),rgba(82,143,255,.16));
 
-    --r-lg:22px;
-    --r-md:16px;
-    --r-sm:12px;
+    /* Söhne Breit (wide) for headers; Söhne for other big display type (prices); Inter for everything else */
+    --font-headline:SoehneBreit,Soehne,InterVariable,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    --font-display:Soehne,SoehneBreit,InterVariable,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    --font-body:InterVariable,Inter,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+
+    --r-lg:16px;           /* Splice uses tighter corners than the old prototype */
+    --r-md:12px;
+    --r-sm:8px;            /* --button-border-radius .5rem */
     --maxw:1180px;
     --pad:clamp(20px,5vw,40px);
   }
@@ -51,7 +62,7 @@
   body{
     background:var(--bg);
     color:var(--text);
-    font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+    font-family:var(--font-body);
     font-weight:400;
     line-height:1.55;
     -webkit-font-smoothing:antialiased;
@@ -70,25 +81,26 @@
     font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
     color:var(--pink-ink);
   }
-  h1,h2,h3{letter-spacing:-.02em;line-height:1.04;color:var(--white);font-weight:800}
+  /* Söhne (web-fett) is a heavy display cut, so headings sit at weight 400 */
+  h1,h2{font-family:var(--font-headline);font-weight:400;letter-spacing:-.02em;line-height:1.05;color:var(--white)}
   h2{font-size:clamp(30px,4.6vw,52px);letter-spacing:-.025em}
-  h3{font-size:clamp(20px,2.4vw,26px);letter-spacing:-.02em;font-weight:700}
+  h3{font-family:var(--font-body);font-size:clamp(20px,2.4vw,26px);letter-spacing:-.02em;line-height:1.1;color:var(--white);font-weight:700}
   .lede{color:var(--muted);font-size:clamp(16px,1.5vw,19px);font-weight:400;max-width:60ch}
 
   /* ---------- buttons ---------- */
   .btn{
-    display:inline-flex;align-items:center;gap:10px;
-    font-family:inherit;font-size:15px;font-weight:700;letter-spacing:-.01em;
-    padding:15px 26px;border-radius:999px;border:1px solid transparent;cursor:pointer;
-    transition:transform .25s cubic-bezier(.2,.7,.2,1),box-shadow .25s ease,background .25s ease,border-color .25s ease;
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    font-family:var(--font-body);font-size:1rem;font-weight:500;line-height:1.2;letter-spacing:0;
+    padding:.625rem 1.25rem;border-radius:.5rem;border:1px solid transparent;cursor:pointer;
+    transition:transform .2s cubic-bezier(.2,.7,.2,1),box-shadow .2s ease,background-color .12s ease-out,border-color .12s ease-out,color .12s ease-out;
     white-space:nowrap;
   }
-  .btn--primary{background:var(--grad);color:#fff;box-shadow:0 10px 30px rgba(232,28,154,.35)}
-  .btn--primary:hover{transform:translateY(-2px);box-shadow:0 16px 44px rgba(232,28,154,.5)}
-  .btn--ghost{background:rgba(255,255,255,.04);color:var(--white);border-color:var(--line)}
-  .btn--ghost:hover{background:rgba(255,255,255,.09);border-color:#34343f}
-  .btn--lg{padding:18px 34px;font-size:16.5px}
-  .btn .price{opacity:.85;font-weight:600}
+  .btn--primary{background:var(--blue);color:#fff;box-shadow:0 8px 24px rgba(18,83,255,.32)}
+  .btn--primary:hover{background:var(--blue-strong);transform:translateY(-1px);box-shadow:0 12px 32px rgba(18,83,255,.45)}
+  .btn--ghost{background:transparent;color:var(--white);border-color:var(--line)}
+  .btn--ghost:hover{background:rgba(255,255,255,.06);border-color:#45464d}
+  .btn--lg{padding:.875rem 1.75rem;font-size:1.0625rem}
+  .btn .price{opacity:.85;font-weight:400}
 
   /* ===========================================================
      PROTOTYPE BAR
@@ -97,7 +109,7 @@
     position:relative;z-index:60;
     display:flex;align-items:center;gap:10px;
     padding:9px var(--pad);
-    background:#050507;border-bottom:1px solid var(--line);
+    background:#0c0c0e;border-bottom:1px solid var(--line);
     font-size:12px;
   }
   .proto-bar__dot{width:8px;height:8px;border-radius:50%;flex:none;background:var(--pink);box-shadow:0 0 8px var(--pink)}
@@ -114,13 +126,14 @@
     position:sticky;top:0;z-index:50;
     display:flex;align-items:center;gap:28px;
     padding:14px var(--pad);
-    background:rgba(8,8,11,.72);backdrop-filter:blur(14px);
+    background:rgba(18,18,20,.72);backdrop-filter:blur(14px);
     border-bottom:1px solid transparent;
     transition:border-color .3s ease,background .3s ease;
   }
-  .nav.is-stuck{border-color:var(--line);background:rgba(8,8,11,.9)}
+  .nav.is-stuck{border-color:var(--line);background:rgba(18,18,20,.9)}
   .brand{display:flex;align-items:center;gap:11px;font-weight:800;letter-spacing:-.02em;font-size:18px;color:#fff}
-  .brand__mark{width:26px;height:26px;border-radius:7px;background:var(--grad);display:grid;place-items:center;color:#fff;font-weight:900;font-size:15px}
+  .brand__mark{width:26px;height:26px;display:grid;place-items:center;color:var(--blue-soft)}
+  .brand__mark svg{width:26px;height:26px;display:block;fill:currentColor}
   .brand__sub{font-weight:600;color:var(--muted);font-size:12.5px;letter-spacing:.02em;padding-left:11px;margin-left:4px;border-left:1px solid var(--line)}
   .nav__links{display:flex;gap:24px;margin-left:18px}
   .nav__links a{color:var(--muted);font-size:14px;font-weight:500;transition:color .2s}
@@ -137,12 +150,12 @@
      HERO
      =========================================================== */
   .hero{padding:clamp(56px,8vw,104px) 0 clamp(40px,5vw,64px);overflow:hidden}
-  .hero::before{ /* pink glow */
+  .hero::before{ /* Splice-blue glow */
     content:"";position:absolute;inset:-20% -10% auto -10%;height:120%;z-index:0;pointer-events:none;
     background:
-      radial-gradient(60% 55% at 22% 8%,rgba(255,77,141,.30),transparent 60%),
-      radial-gradient(55% 50% at 85% 0%,rgba(123,47,240,.28),transparent 60%),
-      radial-gradient(50% 60% at 60% 30%,rgba(232,28,154,.16),transparent 65%);
+      radial-gradient(60% 55% at 22% 8%,rgba(82,143,255,.30),transparent 60%),
+      radial-gradient(55% 50% at 85% 0%,rgba(0,51,255,.28),transparent 60%),
+      radial-gradient(50% 60% at 60% 30%,rgba(18,83,255,.16),transparent 65%);
     filter:saturate(1.1);
   }
   .hero .wrap{position:relative;z-index:1}
@@ -196,7 +209,7 @@
      ORIGINALS SHOWCASE
      =========================================================== */
   .showcase{padding:clamp(50px,6vw,84px) 0;background:
-    radial-gradient(80% 50% at 50% 0%,rgba(123,47,240,.08),transparent 60%)}
+    radial-gradient(80% 50% at 50% 0%,rgba(0,51,255,.08),transparent 60%)}
   .showcase__top{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap}
   .pill{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:999px;border:1px solid var(--line);
     background:var(--surface);font-size:13px;color:var(--muted);font-weight:600}
@@ -208,21 +221,21 @@
   .tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;
     transition:transform .5s cubic-bezier(.2,.7,.2,1),filter .4s}
   .tile::after{content:"";position:absolute;inset:0;z-index:-1;
-    background:linear-gradient(180deg,rgba(8,8,11,0) 58%,rgba(8,8,11,.5) 100%)}
+    background:linear-gradient(180deg,rgba(18,18,20,0) 58%,rgba(18,18,20,.5) 100%)}
   .tile__body{position:absolute;inset:auto 0 0 0;padding:14px 14px 15px;display:flex;flex-direction:column;gap:3px}
   .tile__cat{font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--pink-ink);opacity:.95}
   .tile__name{font-size:14.5px;font-weight:700;color:#fff;line-height:1.18;letter-spacing:-.01em;margin-top:3px}
-  .tile:hover{transform:translateY(-5px);border-color:rgba(232,28,154,.5);box-shadow:0 18px 44px rgba(0,0,0,.55)}
+  .tile:hover{transform:translateY(-5px);border-color:rgba(18,83,255,.5);box-shadow:0 18px 44px rgba(0,0,0,.55)}
   .tile:hover img{transform:scale(1.07);filter:saturate(1.08)}
   .tile__badge{position:absolute;top:11px;left:11px;z-index:1;font-size:10px;font-weight:800;letter-spacing:.1em;
     text-transform:uppercase;color:#fff;padding:5px 10px;border-radius:999px;background:var(--grad);
-    box-shadow:0 4px 14px rgba(232,28,154,.45)}
+    box-shadow:0 4px 14px rgba(18,83,255,.45)}
   /* gradient placeholder for not-yet-live titles */
   .tile--new-art img{display:none}
   .tile--new-art{background:
-    radial-gradient(120% 90% at 20% 10%,rgba(255,77,141,.5),transparent 60%),
-    radial-gradient(120% 90% at 90% 100%,rgba(123,47,240,.55),transparent 60%),
-    #14101c}
+    radial-gradient(120% 90% at 20% 10%,rgba(82,143,255,.5),transparent 60%),
+    radial-gradient(120% 90% at 90% 100%,rgba(0,51,255,.55),transparent 60%),
+    #17181b}
   .tile--new-art::before{content:"";position:absolute;inset:0;z-index:-1;
     background-image:radial-gradient(rgba(255,255,255,.10) 1px,transparent 1px);background-size:13px 13px;opacity:.5}
   @media(max-width:980px){.grid-titles{grid-template-columns:repeat(4,1fr)}}
@@ -236,15 +249,15 @@
   .math__card{position:relative;border-radius:var(--r-lg);padding:clamp(34px,5vw,64px);overflow:hidden;
     border:1px solid var(--line);background:linear-gradient(180deg,var(--surface),var(--bg-2))}
   .math__card::before{content:"";position:absolute;inset:0;z-index:0;
-    background:radial-gradient(70% 120% at 85% 10%,rgba(123,47,240,.2),transparent 55%),
-              radial-gradient(60% 120% at 10% 90%,rgba(255,77,141,.16),transparent 55%)}
+    background:radial-gradient(70% 120% at 85% 10%,rgba(0,51,255,.2),transparent 55%),
+              radial-gradient(60% 120% at 10% 90%,rgba(82,143,255,.16),transparent 55%)}
   .math__inner{position:relative;z-index:1;display:flex;align-items:center;justify-content:center;gap:clamp(22px,5vw,68px);flex-wrap:wrap;text-align:center}
   .math__col .k{font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
   .math__was{font-size:clamp(40px,7vw,76px);font-weight:800;color:var(--faint);letter-spacing:-.03em;position:relative;display:inline-block}
   .math__was::after{content:"";position:absolute;left:-6px;right:-6px;top:52%;height:4px;background:var(--pink);border-radius:2px;transform:rotate(-8deg)}
   .math__arrow{color:var(--pink-ink);flex:none}
   .math__arrow svg{width:38px;height:38px}
-  .math__now{font-size:clamp(46px,8vw,86px);font-weight:900;letter-spacing:-.04em;color:var(--pink-ink)}
+  .math__now{font-family:var(--font-display);font-size:clamp(46px,8vw,86px);font-weight:400;letter-spacing:-.04em;color:var(--blue-soft)}
   .math__now .mo{font-size:.32em;font-weight:700;color:var(--muted);letter-spacing:-.01em}
   .math__sub{text-align:center;color:var(--muted);margin-top:26px;font-size:15px}
 
@@ -254,14 +267,14 @@
   .proof{padding:clamp(50px,6vw,84px) 0}
   .proof .video{max-width:880px;margin-top:42px}
   .video{position:relative;border-radius:var(--r-md);overflow:hidden;aspect-ratio:16/9;border:1px solid var(--line);
-    background:linear-gradient(120deg,#1a1320,#0e0e16);display:grid;place-items:center;cursor:pointer}
-  .video::after{content:"";position:absolute;inset:0;background:radial-gradient(60% 60% at 50% 45%,rgba(232,28,154,.22),transparent 60%)}
+    background:linear-gradient(120deg,#1d1e21,#141517);display:grid;place-items:center;cursor:pointer}
+  .video::after{content:"";position:absolute;inset:0;background:radial-gradient(60% 60% at 50% 45%,rgba(18,83,255,.22),transparent 60%)}
   .video__play{position:relative;z-index:1;width:78px;height:78px;border-radius:50%;background:var(--grad);display:grid;place-items:center;
-    box-shadow:0 14px 40px rgba(232,28,154,.5);transition:transform .3s}
+    box-shadow:0 14px 40px rgba(18,83,255,.5);transition:transform .3s}
   .video:hover .video__play{transform:scale(1.07)}
   .video__play svg{width:30px;height:30px;color:#fff;margin-left:4px}
   .video__cap{position:absolute;left:18px;bottom:16px;z-index:1;font-size:13px;color:var(--text);font-weight:600;
-    background:rgba(8,8,11,.55);backdrop-filter:blur(6px);padding:7px 12px;border-radius:999px;border:1px solid var(--line)}
+    background:rgba(18,18,20,.55);backdrop-filter:blur(6px);padding:7px 12px;border-radius:999px;border:1px solid var(--line)}
   /* shared play/pause icon toggle (any .is-playing ancestor) */
   .play-ic{display:block}.pause-ic{display:none}
   .is-playing .play-ic{display:none}.is-playing .pause-ic{display:block}
@@ -278,24 +291,24 @@
   .listen-btn{display:inline-flex;align-items:center;gap:11px;padding:11px 20px 11px 11px;border-radius:999px;
     border:1px solid var(--line);background:rgba(255,255,255,.04);color:#fff;font:inherit;font-size:14.5px;font-weight:700;cursor:pointer;
     transition:border-color .25s,background .25s,transform .25s cubic-bezier(.2,.7,.2,1)}
-  .listen-btn:hover{border-color:#3a3a46;background:rgba(255,255,255,.07);transform:translateY(-1px)}
+  .listen-btn:hover{border-color:#45464d;background:rgba(255,255,255,.07);transform:translateY(-1px)}
   .listen-btn__ic{width:34px;height:34px;border-radius:50%;flex:none;display:grid;place-items:center;background:var(--grad);color:#fff;
-    box-shadow:0 6px 18px rgba(232,28,154,.4)}
+    box-shadow:0 6px 18px rgba(18,83,255,.4)}
   .listen-btn__ic svg{width:15px;height:15px}.listen-btn__ic .play-ic{margin-left:2px}
   .chips{display:flex;gap:8px;flex-wrap:wrap}
   .chip{display:inline-flex;align-items:center;gap:7px;padding:9px 14px;border-radius:999px;border:1px solid var(--line);
     background:transparent;color:var(--muted);font:inherit;font-size:13px;font-weight:600;cursor:pointer;transition:color .2s,border-color .2s,background .2s}
-  .chip:hover,.chip.is-active{color:#fff;border-color:var(--pink);background:rgba(232,28,154,.1)}
+  .chip:hover,.chip.is-active{color:#fff;border-color:var(--pink);background:rgba(18,83,255,.1)}
   .chip svg{width:11px;height:11px;color:var(--pink-ink)}
 
   .tile__play{position:absolute;top:11px;right:11px;z-index:2;width:36px;height:36px;border-radius:50%;border:0;cursor:pointer;
-    display:grid;place-items:center;color:#fff;background:rgba(8,8,11,.55);backdrop-filter:blur(6px);
+    display:grid;place-items:center;color:#fff;background:rgba(18,18,20,.55);backdrop-filter:blur(6px);
     opacity:0;transform:translateY(-4px) scale(.9);transition:opacity .28s ease,transform .28s cubic-bezier(.2,.7,.2,1),background .25s,box-shadow .25s}
   .tile:hover .tile__play,.tile:focus-within .tile__play{opacity:1;transform:none}
   .tile__play:hover{background:var(--grad)}
   .tile__play svg{width:15px;height:15px}.tile__play .play-ic{margin-left:2px}
-  .tile.is-playing .tile__play{opacity:1;transform:none;background:var(--grad);box-shadow:0 0 0 4px rgba(232,28,154,.28)}
-  .tile.is-playing{border-color:rgba(232,28,154,.6);box-shadow:0 0 0 1px rgba(232,28,154,.5),0 14px 40px rgba(0,0,0,.5)}
+  .tile.is-playing .tile__play{opacity:1;transform:none;background:var(--grad);box-shadow:0 0 0 4px rgba(18,83,255,.28)}
+  .tile.is-playing{border-color:rgba(18,83,255,.6);box-shadow:0 0 0 1px rgba(18,83,255,.5),0 14px 40px rgba(0,0,0,.5)}
 
   .mini{position:fixed;left:0;right:0;bottom:0;z-index:70;transform:translateY(115%);
     transition:transform .5s cubic-bezier(.2,.7,.2,1);background:rgba(13,13,18,.92);backdrop-filter:blur(16px);border-top:1px solid var(--line)}
@@ -307,9 +320,9 @@
   .mini__sub{font-size:11.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .mini__btn{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:rgba(255,255,255,.04);color:#fff;cursor:pointer;
     display:grid;place-items:center;flex:none;transition:border-color .2s,background .2s}
-  .mini__btn:hover{border-color:#3a3a46;background:rgba(255,255,255,.08)}
+  .mini__btn:hover{border-color:#45464d;background:rgba(255,255,255,.08)}
   .mini__btn svg{width:15px;height:15px}
-  .mini__play{background:var(--grad);border:0;width:42px;height:42px;box-shadow:0 6px 18px rgba(232,28,154,.4)}
+  .mini__play{background:var(--grad);border:0;width:42px;height:42px;box-shadow:0 6px 18px rgba(18,83,255,.4)}
   .mini__play svg{width:17px;height:17px}.mini__play .play-ic{margin-left:1px}
   .mini__bar{flex:1;height:5px;border-radius:999px;background:rgba(255,255,255,.1);cursor:pointer;position:relative;min-width:60px}
   .mini__fill{position:absolute;inset:0 auto 0 0;width:0;background:var(--grad);border-radius:999px}
@@ -335,10 +348,10 @@
      =========================================================== */
   .craft{padding:clamp(60px,8vw,110px) 0;overflow:hidden}
   .craft__card{position:relative;border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--line);
-    background:linear-gradient(120deg,#160c1e,#0b0b12);padding:clamp(34px,5vw,68px)}
+    background:linear-gradient(120deg,#1d1e21,#141517);padding:clamp(34px,5vw,68px)}
   .craft__card::before{content:"";position:absolute;inset:0;z-index:0;
-    background:radial-gradient(50% 80% at 90% 20%,rgba(123,47,240,.35),transparent 55%),
-              radial-gradient(45% 70% at 5% 95%,rgba(255,77,141,.22),transparent 55%)}
+    background:radial-gradient(50% 80% at 90% 20%,rgba(0,51,255,.35),transparent 55%),
+              radial-gradient(45% 70% at 5% 95%,rgba(82,143,255,.22),transparent 55%)}
   .craft__inner{position:relative;z-index:1;max-width:58ch}
   .craft .eyebrow{margin-bottom:16px;display:block}
   .craft h2{font-size:clamp(30px,4.4vw,50px)}
@@ -355,11 +368,11 @@
   .plan{position:relative;border-radius:var(--r-lg);padding:32px 30px 34px;background:var(--surface);border:1px solid var(--line)}
   .plan--feat{border-color:transparent;background:
     linear-gradient(var(--surface),var(--surface)) padding-box,
-    var(--grad) border-box;box-shadow:0 20px 60px rgba(232,28,154,.18)}
+    var(--grad) border-box;box-shadow:0 20px 60px rgba(18,83,255,.18)}
   .plan__flag{position:absolute;top:-13px;left:30px;font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#fff;
-    background:var(--grad);padding:6px 13px;border-radius:999px;box-shadow:0 6px 18px rgba(232,28,154,.45)}
+    background:var(--grad);padding:6px 13px;border-radius:999px;box-shadow:0 6px 18px rgba(18,83,255,.45)}
   .plan__name{font-size:14px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
-  .plan__price{margin-top:14px;font-size:clamp(40px,5vw,52px);font-weight:900;color:#fff;letter-spacing:-.03em;line-height:1}
+  .plan__price{font-family:var(--font-display);margin-top:14px;font-size:clamp(40px,5vw,52px);font-weight:400;color:#fff;letter-spacing:-.03em;line-height:1}
   .plan__price .mo{font-size:.36em;font-weight:700;color:var(--muted);letter-spacing:0}
   .plan__intro{margin-top:10px;font-size:13.5px;color:var(--pink-ink);font-weight:700}
   .plan__intro.is-blank{color:var(--faint);font-weight:500}
@@ -374,8 +387,8 @@
      =========================================================== */
   .close{padding:clamp(64px,9vw,128px) 0;text-align:center;position:relative;overflow:hidden}
   .close::before{content:"";position:absolute;inset:0;z-index:0;
-    background:radial-gradient(60% 90% at 50% 120%,rgba(232,28,154,.28),transparent 60%),
-              radial-gradient(50% 80% at 50% -20%,rgba(123,47,240,.2),transparent 60%)}
+    background:radial-gradient(60% 90% at 50% 120%,rgba(18,83,255,.28),transparent 60%),
+              radial-gradient(50% 80% at 50% -20%,rgba(0,51,255,.2),transparent 60%)}
   .close .wrap{position:relative;z-index:1}
   .close h2{font-size:clamp(34px,5.6vw,66px);font-weight:900;letter-spacing:-.035em;max-width:18ch;margin-inline:auto}
   .close p{color:var(--muted);margin-top:18px;font-size:clamp(16px,1.6vw,19px)}
@@ -409,7 +422,7 @@
   <!-- ===== NAV ===== -->
   <nav class="nav" id="nav">
     <a class="brand" href="#top">
-      <span class="brand__mark">s</span>splice
+      <span class="brand__mark" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.812 14.586c0 .1-.076.181-.173.191a4.32 4.32 0 01-4.783-4.292c0-1.192.484-2.27 1.267-3.052l4.598-4.59A2.877 2.877 0 0112.76 2a2.88 2.88 0 012.883 2.878c0 .795-.323 1.514-.845 2.035L9.52 12.181a1.437 1.437 0 000 2.035l.236.235a.191.191 0 01.056.135zM14.34 8.726a4.311 4.311 0 014.783 4.291 4.299 4.299 0 01-1.268 3.054l-5.095 5.086A2.877 2.877 0 0110.72 22a2.88 2.88 0 01-2.883-2.878c0-.795.323-1.514.844-2.035l5.777-5.765a1.437 1.437 0 000-2.035l-.235-.235a.191.191 0 01.116-.326z"/></svg></span>splice
       <span class="brand__sub">INSTRUMENT</span>
     </a>
     <div class="nav__links">
@@ -607,7 +620,7 @@
 
   <!-- ===== FOOTER ===== -->
   <footer>
-    <a class="brand" href="#top"><span class="brand__mark">s</span>splice <span class="brand__sub">INSTRUMENT</span></a>
+    <a class="brand" href="#top"><span class="brand__mark" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.812 14.586c0 .1-.076.181-.173.191a4.32 4.32 0 01-4.783-4.292c0-1.192.484-2.27 1.267-3.052l4.598-4.59A2.877 2.877 0 0112.76 2a2.88 2.88 0 012.883 2.878c0 .795-.323 1.514-.845 2.035L9.52 12.181a1.437 1.437 0 000 2.035l.236.235a.191.191 0 01.056.135zM14.34 8.726a4.311 4.311 0 014.783 4.291 4.299 4.299 0 01-1.268 3.054l-5.095 5.086A2.877 2.877 0 0110.72 22a2.88 2.88 0 01-2.883-2.878c0-.795.323-1.514.844-2.035l5.777-5.765a1.437 1.437 0 000-2.035l-.235-.235a.191.191 0 01.116-.326z"/></svg></span>splice <span class="brand__sub">INSTRUMENT</span></a>
     <span>Prototype concept · Spitfire Originals × Splice INSTRUMENT · not for distribution</span>
   </footer>
 
