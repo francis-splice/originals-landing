@@ -145,10 +145,10 @@
   .nav__login{color:var(--faint);font-size:14px;font-weight:500;padding:9px 14px;border-radius:8px;transition:color .15s ease}
   .nav__login:hover{color:#fff}
   .nav__cta{display:inline-flex;align-items:center;justify-content:center;
-    background:#fff;color:#121214;font-family:var(--font-body);font-size:14px;font-weight:500;line-height:1;
+    background:var(--blue);color:#fff;font-family:var(--font-body);font-size:14px;font-weight:500;line-height:1;
     padding:11px 20px;border-radius:100px;white-space:nowrap;
     transition:background .15s ease,transform .15s cubic-bezier(.2,.7,.2,1)}
-  .nav__cta:hover{background:#e5e5e8;transform:translateY(-1px)}
+  .nav__cta:hover{background:var(--blue-strong);transform:translateY(-1px)}
   @media(max-width:980px){.nav__links{display:none}}
   @media(max-width:520px){.nav__login{display:none}}
 
@@ -167,11 +167,11 @@
   .hero .wrap{position:relative;z-index:1}
   .hero__eyebrow{display:inline-flex;align-items:center;gap:10px;margin-bottom:22px}
   .hero__eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--pink)}
-  .hero h1{font-size:clamp(42px,7.4vw,86px);font-weight:900;letter-spacing:-.035em;max-width:16ch}
+  .hero h1{font-size:clamp(42px,7.4vw,86px);font-weight:400;letter-spacing:-.035em;max-width:16ch}
   .hero p.lede{margin-top:22px;font-size:clamp(17px,1.8vw,21px)}
   .hero p.lede b{color:#fff;font-weight:700}
   .hero__cta{margin-top:34px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
-  .hero__note{color:var(--faint);font-size:13.5px;display:flex;align-items:center;gap:8px}
+  .hero__note{color:var(--muted);font-size:13.5px;display:flex;align-items:center;gap:8px}
   .hero__note svg{width:15px;height:15px;color:var(--pink-ink)}
 
   /* cover marquee under hero */
@@ -254,9 +254,7 @@
   .math{padding:clamp(56px,7vw,96px) 0}
   .math__card{position:relative;border-radius:var(--r-lg);padding:clamp(34px,5vw,64px);overflow:hidden;
     border:1px solid var(--line);background:linear-gradient(180deg,var(--surface),var(--bg-2))}
-  .math__card::before{content:"";position:absolute;inset:0;z-index:0;
-    background:radial-gradient(70% 120% at 85% 10%,rgba(0,51,255,.2),transparent 55%),
-              radial-gradient(60% 120% at 10% 90%,rgba(82,143,255,.16),transparent 55%)}
+  /* glow reserved for the hero + closing bookends; cards carry weight via border + type */
   .math__inner{position:relative;z-index:1;display:flex;align-items:center;justify-content:center;gap:clamp(22px,5vw,68px);flex-wrap:wrap;text-align:center}
   .math__col .k{font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
   .math__was{font-size:clamp(40px,7vw,76px);font-weight:800;color:var(--faint);letter-spacing:-.03em;position:relative;display:inline-block}
@@ -265,7 +263,7 @@
   .math__arrow svg{width:38px;height:38px}
   .math__now{font-family:var(--font-display);font-size:clamp(46px,8vw,86px);font-weight:400;letter-spacing:-.04em;color:var(--blue-soft)}
   .math__now .mo{font-size:.32em;font-weight:700;color:var(--muted);letter-spacing:-.01em}
-  .math__sub{text-align:center;color:var(--muted);margin-top:26px;font-size:15px}
+  .math__sub{text-align:center;color:var(--muted);margin-top:26px;font-size:15px;max-width:60ch;margin-inline:auto}
 
   /* ===========================================================
      PROOF / WALKTHROUGH
@@ -274,7 +272,7 @@
   .proof .video{max-width:880px;margin-top:42px}
   .video{position:relative;border-radius:var(--r-md);overflow:hidden;aspect-ratio:16/9;border:1px solid var(--line);
     background:linear-gradient(120deg,#1d1e21,#141517);display:grid;place-items:center;cursor:pointer}
-  .video::after{content:"";position:absolute;inset:0;background:radial-gradient(60% 60% at 50% 45%,rgba(18,83,255,.22),transparent 60%)}
+  .video::after{content:"";position:absolute;inset:0;background:radial-gradient(60% 60% at 50% 45%,rgba(18,83,255,.10),transparent 62%)}
   .video__play{position:relative;z-index:1;width:78px;height:78px;border-radius:50%;background:var(--grad);display:grid;place-items:center;
     box-shadow:0 14px 40px rgba(18,83,255,.5);transition:transform .3s}
   .video:hover .video__play{transform:scale(1.07)}
@@ -311,10 +309,30 @@
     display:grid;place-items:center;color:#fff;background:rgba(18,18,20,.55);backdrop-filter:blur(6px);
     opacity:0;transform:translateY(-4px) scale(.9);transition:opacity .28s ease,transform .28s cubic-bezier(.2,.7,.2,1),background .25s,box-shadow .25s}
   .tile:hover .tile__play,.tile:focus-within .tile__play{opacity:1;transform:none}
+  /* touch devices have no hover: keep the preview affordance visible */
+  @media (hover:none){.tile__play{opacity:.92;transform:none}}
   .tile__play:hover{background:var(--grad)}
   .tile__play svg{width:15px;height:15px}.tile__play .play-ic{margin-left:2px}
   .tile.is-playing .tile__play{opacity:1;transform:none;background:var(--grad);box-shadow:0 0 0 4px rgba(18,83,255,.28)}
   .tile.is-playing{border-color:rgba(18,83,255,.6);box-shadow:0 0 0 1px rgba(18,83,255,.5),0 14px 40px rgba(0,0,0,.5)}
+
+  /* buffering ring: shown on the active control between tap and playback */
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .listen-btn__ic,.mini__play{position:relative}
+  .tile.is-buffering .tile__play::after,
+  .mini.is-buffering .mini__play::after,
+  .listen-btn.is-buffering .listen-btn__ic::after{
+    content:"";position:absolute;inset:-3px;border-radius:50%;
+    border:2px solid rgba(255,255,255,.28);border-top-color:#fff;animation:spin .7s linear infinite}
+  .tile.is-buffering .tile__play{opacity:1;transform:none}
+
+  /* audio fallback toast (when a preview can't load/play) */
+  .audio-toast{position:fixed;left:50%;bottom:96px;z-index:80;transform:translate(-50%,16px);
+    background:var(--surface-2);color:var(--text);border:1px solid var(--line);border-radius:10px;
+    padding:11px 16px;font-size:13.5px;font-weight:500;box-shadow:0 12px 32px rgba(0,0,0,.5);
+    opacity:0;pointer-events:none;transition:opacity .25s ease,transform .25s cubic-bezier(.2,.7,.2,1);max-width:90vw}
+  .audio-toast.show{opacity:1;transform:translateX(-50%)}
+  .audio-toast a{color:var(--blue-soft);font-weight:600;border-bottom:1px solid var(--blue-soft);margin-left:6px;pointer-events:auto}
 
   .mini{position:fixed;left:0;right:0;bottom:0;z-index:70;transform:translateY(115%);
     transition:transform .5s cubic-bezier(.2,.7,.2,1);background:rgba(13,13,18,.92);backdrop-filter:blur(16px);border-top:1px solid var(--line)}
@@ -345,8 +363,8 @@
   .feat__h{display:flex;align-items:center;gap:12px;margin-bottom:8px}
   .feat__ic{color:var(--pink-ink);display:grid;place-items:center;flex:none}
   .feat__ic svg{width:20px;height:20px}
-  .feat h3{font-size:17px}
-  .feat p{color:var(--muted);font-size:14px;max-width:46ch}
+  .feat h3{font-size:18px}
+  .feat p{color:var(--muted);font-size:15px;max-width:46ch}
   @media(max-width:620px){.feat-list{grid-template-columns:1fr}}
 
   /* ===========================================================
@@ -356,8 +374,7 @@
   .craft__card{position:relative;border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--line);
     background:linear-gradient(120deg,#1d1e21,#141517);padding:clamp(34px,5vw,68px)}
   .craft__card::before{content:"";position:absolute;inset:0;z-index:0;
-    background:radial-gradient(50% 80% at 90% 20%,rgba(0,51,255,.35),transparent 55%),
-              radial-gradient(45% 70% at 5% 95%,rgba(82,143,255,.22),transparent 55%)}
+    background:radial-gradient(55% 85% at 92% 15%,rgba(18,83,255,.14),transparent 60%)}
   .craft__inner{position:relative;z-index:1;max-width:58ch}
   .craft .eyebrow{margin-bottom:16px;display:block}
   .craft h2{font-size:clamp(30px,4.4vw,50px)}
@@ -383,7 +400,7 @@
   .plan__intro{margin-top:10px;font-size:13.5px;color:var(--pink-ink);font-weight:700}
   .plan__intro.is-blank{color:var(--faint);font-weight:500}
   .plan__list{list-style:none;margin:24px 0 28px;display:flex;flex-direction:column;gap:12px}
-  .plan__list li{display:flex;gap:11px;font-size:14.5px;color:var(--text)}
+  .plan__list li{display:flex;gap:11px;font-size:15.5px;color:var(--text)}
   .plan__list svg{width:18px;height:18px;flex:none;color:var(--pink-ink);margin-top:1px}
   .plan .btn{width:100%;justify-content:center}
   @media(max-width:680px){.plans{grid-template-columns:1fr;max-width:420px}}
@@ -396,10 +413,10 @@
     background:radial-gradient(60% 90% at 50% 120%,rgba(18,83,255,.28),transparent 60%),
               radial-gradient(50% 80% at 50% -20%,rgba(0,51,255,.2),transparent 60%)}
   .close .wrap{position:relative;z-index:1}
-  .close h2{font-size:clamp(34px,5.6vw,66px);font-weight:900;letter-spacing:-.035em;max-width:18ch;margin-inline:auto}
-  .close p{color:var(--muted);margin-top:18px;font-size:clamp(16px,1.6vw,19px)}
+  .close h2{font-size:clamp(34px,5.6vw,66px);font-weight:400;letter-spacing:-.035em;max-width:18ch;margin-inline:auto}
+  .close p{color:var(--muted);margin-top:18px;font-size:clamp(16px,1.6vw,19px);max-width:54ch;margin-inline:auto}
   .close .btn{margin-top:32px}
-  .close__note{margin-top:16px;color:var(--faint);font-size:13px}
+  .close__note{margin-top:16px;color:var(--muted);font-size:13px}
 
   footer{border-top:1px solid var(--line);padding:30px var(--pad);display:flex;flex-wrap:wrap;gap:10px 24px;
     align-items:center;justify-content:space-between;font-size:12.5px;color:var(--faint)}
@@ -434,11 +451,9 @@
       <svg class="brand__logo" viewBox="0 0 236 72" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path clip-rule="evenodd" d="M16.983 46.202a.685.685 0 00.413-1.163l-.834-.835c-2-2-2-5.244 0-7.243L35.3 18.208c1.854-1.854 3-4.415 3-7.245C38.3 5.306 33.717.72 28.064.72a10.199 10.199 0 00-7.239 3L4.497 20.058A15.324 15.324 0 000 30.924C0 39.41 6.875 46.29 15.355 46.29c.55 0 1.093-.03 1.628-.088zm18.32-21.63c-.551 0-1.095.034-1.63.091a.681.681 0 00-.412 1.16l.835.835a5.125 5.125 0 010 7.243l-20.51 20.523a10.218 10.218 0 00-2.998 7.243c0 5.658 4.584 10.245 10.237 10.245 2.827 0 5.386-1.147 7.238-3l18.094-18.106a15.326 15.326 0 004.5-10.869c0-8.486-6.874-15.365-15.355-15.365zm38.35 20.043l-5.051 5.118c2.719 4.538 7.704 7.064 14.117 7.064 7.641 0 12.885-4.277 12.885-10.497 0-5.832-3.302-8.943-11.266-11.02-4.47-1.23-6.219-1.813-6.219-3.368 0-1.424 1.62-2.398 4.147-2.398 2.33 0 4.664 1.232 6.215 3.436l5.052-5.12c-2.656-3.37-6.735-5.444-11.333-5.444-7.254 0-12.044 3.759-12.044 9.591 0 5.899 4.208 9.008 11.525 10.953 4.6 1.424 5.702 2.139 5.702 3.628 0 1.622-1.945 2.853-4.664 2.853-4.147 0-7.448-1.946-9.067-4.796zm53.617-5.055c0-5.25-3.626-9.334-8.937-9.334-5.181 0-9.001 4.084-9.001 9.334 0 5.313 3.82 9.332 9.001 9.332 5.311 0 8.937-4.019 8.937-9.332zm8.289 0c0 9.656-6.671 17.236-15.867 17.236-4.144 0-7.704-1.552-10.36-4.21v16.07h-8.421V23.295h8.421v3.37c2.656-2.659 6.216-4.28 10.36-4.28 9.196 0 15.867 7.517 15.867 17.175zm5.307 16.266h8.547V10.462h-8.547v45.364zm23.313 0h-8.55V23.295h8.55v32.53zm-9.132-41.216c0-2.658 2.203-4.86 4.859-4.86 2.653 0 4.853 2.202 4.853 4.86 0 2.657-2.2 4.859-4.853 4.859-2.656 0-4.859-2.202-4.859-4.86zm31.471 7.775c-9.778 0-16.774 7.388-16.774 17.175 0 9.914 6.996 17.236 16.774 17.236 6.996 0 10.946-3.108 13.991-6.739l-5.182-5.184c-2.137 2.204-4.016 4.082-8.356 4.082-5.375 0-8.869-3.953-8.869-9.395 0-5.315 3.494-9.334 8.869-9.334 4.275 0 6.162 1.889 8.26 3.988l.096.096 5.182-5.183c-2.98-3.63-6.995-6.742-13.991-6.742zm25.19 13.416h16.449c-.582-4.019-3.754-6.352-7.77-6.352-4.274 0-7.449 2.528-8.679 6.352zm24.157 6.285h-24.416c.907 4.472 4.145 7.518 8.938 7.518 4.727 0 6.993-2.202 9.13-4.73l5.051 4.925c-2.977 3.823-7.125 6.998-14.442 6.998-9.649 0-16.578-7.386-16.578-17.303 0-9.784 6.995-17.108 16.578-17.108 9.715 0 15.739 7.516 15.739 16.007v3.693z" fill-rule="evenodd" fill="currentColor"/></svg>
     </a>
     <div class="nav__links">
-      <a href="https://splice.com/sounds">Sounds<svg class="caret" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg></a>
-      <a href="#more">INSTRUMENT<svg class="caret" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg></a>
-      <a href="https://splice.com/rent-to-own">Rent-to-Own Plugins<svg class="caret" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg></a>
-      <a href="https://splice.com/pages/community">Community<svg class="caret" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg></a>
-      <a href="#pricing">Pricing</a>
+      <a href="#originals">Originals</a>
+      <a href="#more">INSTRUMENT</a>
+      <a href="#pricing">Plans</a>
     </div>
     <div class="nav__right">
       <a class="nav__login" href="https://splice.com/instrument/plans">Log in</a>
@@ -503,7 +518,7 @@
           <h2>Every Originals title. Unlocked.</h2>
           <p class="lede">Recognisable, record-ready instruments used on countless releases, now all in one subscription.</p>
         </div>
-        <span class="pill reveal"><b id="titleCount">22</b>&nbsp;titles &middot; <b>4</b> brand new</span>
+        <span class="pill reveal"><b id="titleCount">23</b>&nbsp;titles &middot; <b>4</b> brand new</span>
       </div>
       <div class="grid-titles" id="titles"></div>
     </div>
@@ -536,9 +551,9 @@
         <span class="eyebrow">Hear it · See it</span>
         <h2>Sounds you already know.</h2>
       </div>
-      <div class="video reveal" role="button" aria-label="Play the Originals walkthrough">
+      <div class="video reveal" id="proofPlay" role="button" tabindex="0" aria-label="Play a preview of the Originals collection">
         <div class="video__play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
-        <span class="video__cap">Originals on INSTRUMENT: walkthrough</span>
+        <span class="video__cap">Press play: hear Originals in context</span>
       </div>
       <blockquote class="quote reveal">
         <span class="quote__mark" aria-hidden="true">“</span>
@@ -607,7 +622,7 @@
           <div class="plan__price">£19.99<span class="mo">/month</span></div>
           <div class="plan__intro">£4.99 for your first month</div>
           <ul class="plan__list">
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6 9 17l-5-5"/></svg>Everything in INSTRUMENT</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6 9 17l-5-5"/></svg>All of Originals + the full INSTRUMENT plugin</li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6 9 17l-5-5"/></svg>200 Splice Sounds credits / month</li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6 9 17l-5-5"/></svg>Craft: reshape your own sounds</li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6 9 17l-5-5"/></svg>Cancel anytime</li>
@@ -734,7 +749,7 @@
         <svg class="pause-ic" viewBox="0 0 24 24" fill="currentColor"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>
       </button>
       <button class="mini__btn mini__next" id="mNext" type="button" aria-label="Next title"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M15 6h2v12h-2zM5 18l9-6-9-6z"/></svg></button>
-      <div class="mini__bar" id="mBar" role="slider" aria-label="Seek"><span class="mini__fill" id="mFill"></span></div>
+      <div class="mini__bar" id="mBar" role="slider" tabindex="0" aria-label="Seek" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span class="mini__fill" id="mFill"></span></div>
       <span class="mini__time" id="mTime">0:00</span>
       <button class="mini__btn mini__close" id="mClose" type="button" aria-label="Close player"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
     </div>`;
@@ -744,16 +759,27 @@
   const heroBtn = document.getElementById("heroPlay");
 
   const audio = new Audio(); audio.preload = "none";
-  let cur = -1, playing = false;
+  let cur = -1, playing = false, buffering = false;
   const fmt = s => (!isFinite(s) ? "0:00" : Math.floor(s/60) + ":" + String(Math.floor(s%60)).padStart(2,"0"));
 
+  /* fallback toast for a preview that can't load or play */
+  const toast = document.createElement("div");
+  toast.className = "audio-toast"; toast.setAttribute("role","status"); toast.setAttribute("aria-live","polite");
+  document.body.appendChild(toast);
+  let toastT;
+  function showToast(){
+    toast.innerHTML = `Preview unavailable right now.<a href="https://splice.com/instrument/plans">Hear it on Splice</a>`;
+    toast.classList.add("show"); clearTimeout(toastT);
+    toastT = setTimeout(()=> toast.classList.remove("show"), 5000);
+  }
+
   function reflect(){
-    document.querySelectorAll(".tile.is-playing").forEach(t => t.classList.remove("is-playing"));
-    const btn = document.querySelector(`.tile__play[data-i="${cur}"]`);
-    if (btn && playing) btn.closest(".tile").classList.add("is-playing");
-    mini.classList.toggle("is-playing", playing);
-    heroBtn.classList.toggle("is-playing", playing);
-    document.querySelectorAll(".chip").forEach(c => c.classList.toggle("is-active", playing && +c.dataset.i === cur));
+    document.querySelectorAll(".tile.is-playing,.tile.is-buffering").forEach(t => t.classList.remove("is-playing","is-buffering"));
+    const tile = document.querySelector(`.tile__play[data-i="${cur}"]`)?.closest(".tile");
+    if (tile){ tile.classList.toggle("is-playing", playing); tile.classList.toggle("is-buffering", buffering); }
+    mini.classList.toggle("is-playing", playing);   mini.classList.toggle("is-buffering", buffering);
+    heroBtn.classList.toggle("is-playing", playing); heroBtn.classList.toggle("is-buffering", buffering);
+    document.querySelectorAll(".chip").forEach(c => c.classList.toggle("is-active", (playing||buffering) && +c.dataset.i === cur));
   }
   function load(i){
     cur = i; const [slug,name,cat,ext] = LIVE[i];
@@ -762,15 +788,19 @@
     mName.textContent = name; mSub.textContent = cat + " · Originals";
     mini.classList.add("is-open");
   }
-  function play(i){ if (i !== undefined && i !== cur) load(i); audio.play().catch(()=>{}); }
-  function toggle(){ if (cur === -1){ play(SIGS[0]); return; } playing ? audio.pause() : audio.play().catch(()=>{}); }
+  function start(){ buffering = true; reflect(); audio.play().catch(()=>{ buffering = false; reflect(); showToast(); }); }
+  function play(i){ if (i !== undefined && i !== cur) load(i); start(); }
+  function toggle(){ if (cur === -1){ play(SIGS[0]); return; } playing ? audio.pause() : start(); }
 
-  audio.addEventListener("play",  ()=>{ playing = true;  reflect(); });
-  audio.addEventListener("pause", ()=>{ playing = false; reflect(); });
-  audio.addEventListener("ended", ()=> play((cur + 1) % LIVE.length));
+  audio.addEventListener("playing", ()=>{ playing = true; buffering = false; reflect(); });
+  audio.addEventListener("waiting", ()=>{ buffering = true; reflect(); });
+  audio.addEventListener("pause",   ()=>{ playing = false; buffering = false; reflect(); });
+  audio.addEventListener("ended",   ()=> play((cur + 1) % LIVE.length));
+  audio.addEventListener("error",   ()=>{ playing = false; buffering = false; reflect(); showToast(); });
   audio.addEventListener("timeupdate", ()=>{
-    const d = audio.duration || 0;
-    mFill.style.width = (d ? audio.currentTime / d * 100 : 0) + "%";
+    const d = audio.duration || 0, pct = d ? audio.currentTime / d * 100 : 0;
+    mFill.style.width = pct + "%";
+    mBar.setAttribute("aria-valuenow", Math.round(pct));
     mTime.textContent = fmt(audio.currentTime);
   });
 
@@ -784,11 +814,24 @@
     const i = +b.dataset.i; (i === cur) ? toggle() : play(i);
   });
   heroBtn.addEventListener("click", toggle);
+  /* proof "video" triggers an in-context preview instead of being a dead placeholder */
+  const proof = document.getElementById("proofPlay");
+  const proofGo = ()=> (cur === SIGS[0]) ? toggle() : play(SIGS[0]);
+  proof.addEventListener("click", proofGo);
+  proof.addEventListener("keydown", e=>{ if (e.key === "Enter" || e.key === " "){ e.preventDefault(); proofGo(); } });
   mini.querySelector("#mPlay").addEventListener("click", toggle);
   mini.querySelector("#mNext").addEventListener("click", ()=> play((cur + 1) % LIVE.length));
   mini.querySelector("#mPrev").addEventListener("click", ()=> play((cur - 1 + LIVE.length) % LIVE.length));
   mini.querySelector("#mClose").addEventListener("click", ()=>{ audio.pause(); mini.classList.remove("is-open"); });
   mBar.addEventListener("click", e=>{ const r = mBar.getBoundingClientRect(); if (audio.duration) audio.currentTime = (e.clientX - r.left) / r.width * audio.duration; });
+  mBar.addEventListener("keydown", e=>{
+    if (!audio.duration) return;
+    const step = audio.duration * 0.05;
+    if (e.key === "ArrowRight" || e.key === "ArrowUp"){ e.preventDefault(); audio.currentTime = Math.min(audio.duration, audio.currentTime + step); }
+    else if (e.key === "ArrowLeft" || e.key === "ArrowDown"){ e.preventDefault(); audio.currentTime = Math.max(0, audio.currentTime - step); }
+    else if (e.key === "Home"){ e.preventDefault(); audio.currentTime = 0; }
+    else if (e.key === "End"){ e.preventDefault(); audio.currentTime = audio.duration; }
+  });
 
   /* sticky nav state */
   const nav = document.getElementById("nav");
