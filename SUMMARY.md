@@ -3,14 +3,15 @@
 > Source of truth for design and product decisions in this repo. Maintained via the `update-doc` skill. When resuming a session, read this file first.
 
 ## Most recent change
-2026-06-17: Migrated this prototype out of the `sfa-tokens` token-studies repo into its own working folder (`/Users/gestalt/DEV/originals-landing`). Fixed the standalone links (removed the "Studies hub" links that pointed back into the token repo), added its own `.claude/launch.json` (preview on port 8124) and `.nojekyll`, and started this SUMMARY. The page content is unchanged.
+2026-06-17: Published to its own **public GitHub repo** (`francis-splice/originals-landing`) and enabled **GitHub Pages** (main/root). Live at https://francis-splice.github.io/originals-landing/ (page + covers + fonts verified 200; noindex prototype). Earlier the same day: migrated out of the `sfa-tokens` token-studies repo into this standalone working folder, fixed the standalone links, added `.claude/launch.json` (preview on port 8124) and `.nojekyll`.
 
 ## What this is
 A hi-fi, clickable, responsive **conversion landing page** for the Originals relaunch: drive Splice paid-marketing traffic to INSTRUMENT subscriptions. "All of Originals. One subscription." for £12.99/month. Built from the [PRD](https://app.notion.com/p/381cb340c45c8172a97fef2525af1be4). This is a design prototype and the visual reference for the eventual Sanity production build, not the production page itself.
 
 ## Live URLs
+- Live (GitHub Pages): https://francis-splice.github.io/originals-landing/
+- Repo: https://github.com/francis-splice/originals-landing (public; `main` branch root, Pages source = `main`/`/`; publish = `git push`). `.nojekyll` present; `.gitignore` keeps `.claude/` out.
 - Local preview: http://localhost:8124/ (via `.claude/launch.json`, `python3 -m http.server 8124`).
-- Not yet deployed from this repo. (It was previously served from the token repo's GitHub Pages; that copy is being removed in the migration.)
 - Existing checkout every CTA targets: https://splice.com/plans/checkout?products=1064fbac-424b-4a68-8eab-981ad9cc2aef
 - Plans page: https://splice.com/instrument/plans
 
@@ -39,7 +40,7 @@ First-party Spitfire/Splice design work (the user is a designer there), so no th
 
 ## Open questions
 - Title count reads "23" (19 live + 4 new) vs the PRD's "22 (figure to confirm)". Self-consistent with the grid; adjust if the official count lands at 22.
-- Deploy target for this standalone repo (its own GitHub Pages? Vercel?) not yet decided.
+- Deploy: resolved 2026-06-17 to public GitHub Pages (`francis-splice/originals-landing`), matching the `sfa-tokens` pattern. Audio streams from the Spitfire CDN, so the live page depends on those URLs staying put.
 
 ## Rejected directions
 - **Local-download / placeholder audio** (2026-06-17). Considered downloading the 19 demo MP3s into `assets/audio/` (fully self-contained) or styling the player around silent placeholders. Chose **streaming the real MP3s from the Spitfire CDN** (lighter repo, audio-accurate, but drifts if Spitfire moves the files). Self-hosting stays the path to archival independence if needed.
